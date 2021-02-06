@@ -12,6 +12,8 @@ import data from "./data.json";
 
 const Button = adapt("ts-button");
 
+const KEY_PREFIX = "new-features-modal";
+
 declare global {
     namespace JSX {
         interface IntrinsicElements {
@@ -27,18 +29,21 @@ const App: React.FC = (props) => {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     // @ts-ignore
     const { title, features } = data;
+    const shouldShowModal = localStorage.getItem(`${KEY_PREFIX}/show`) === 'true';
     return (
         <div className="App">
             <div className="leftNavMock"></div>
             <div className="rightContent">
                 <ts-root>
                     <Button onClick={() => setIsModalVisible(true)}>open modal</Button>
-                    <NewFeaturesModal
-                        title={title}
-                        features={features}
-                        visible={isModalVisible}
-                        onClose={() => setIsModalVisible(false)}
-                    />
+                    {shouldShowModal && (
+                        <NewFeaturesModal
+                            title={title}
+                            features={features}
+                            visible={isModalVisible}
+                            onClose={() => setIsModalVisible(false)}
+                        />
+                    )}
                 </ts-root>
             </div>
         </div>

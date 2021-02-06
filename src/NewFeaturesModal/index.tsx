@@ -4,12 +4,15 @@ import "@tradeshift/elements.root";
 import "@tradeshift/elements.button";
 import "@tradeshift/elements.modal";
 
+const KEY_PREFIX = "new-features-modal";
+
 const Button = adapt("ts-button");
 const Modal = adapt("ts-modal", {
     visible: "data-visible",
+    title: "data-title",
     size: "data-size",
     onClose: "close",
-    title: "data-title",
+    onOpen: "open",
     noPadding: "no-padding",
 });
 
@@ -34,8 +37,35 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
 }) => {
     const [featCurIdx, setFeatCurIdx] = useState(0);
     const featMaxIdx = (features?.length ?? 0) - 1;
+
+    const onOpen = () => {
+        localStorage.setItem(`${KEY_PREFIX}/show`, "true");
+        if (!localStorage.getItem(`${KEY_PREFIX}/last-seen-step`)) {
+            localStorage.setItem(`${KEY_PREFIX}/last-seen-step`, "0");
+        }
+        console.log("yes");
+    };
+
+    const onModalClose = () => {
+        localStorage.setItem(`${KEY_PREFIX}/closed-date`, Date.now().toString());
+        if (featCurIdx === featMaxIdx) {
+            localStorage.setItem(`${KEY_PREFIX}/show`, "false");
+        }
+        onClose?.();
+    }
+
+    const onClickPrevious = () => {
+        localStorage.setItem(`${KEY_PREFIX}/last-seen-step`, (featCurIdx - 1).toString());
+        setFeatCurIdx(featCurIdx - 1);
+    };
+
+    const onClickNext = () => {
+        localStorage.setItem(`${KEY_PREFIX}/last-seen-step`, (featCurIdx + 1).toString());
+        setFeatCurIdx(featCurIdx + 1);
+    };
+
     return (
-        <Modal size="small" visible={visible ? true : null} title={title} onClose={onClose} noPadding>
+        <Modal size="small" visible={visible ? true : null} title={title} onOpen={onOpen} onClose={onModalClose} noPadding>
             <div slot="main">
                 <div className="img-container">
                     <img src={features?.[featCurIdx]?.img} alt={features?.[featCurIdx]?.title} />
@@ -44,12 +74,12 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
                 <div className="description">{features?.[featCurIdx]?.description}</div>
                 <div className="button-container">
                     {featCurIdx !== 0 && (
-                        <Button type="secondary" onClick={() => setFeatCurIdx(featCurIdx - 1)}>
+                        <Button type="secondary" onClick={onClickPrevious}>
                             Previous
                         </Button>
                     )}
                     {featCurIdx < featMaxIdx ? (
-                        <Button type="primary" onClick={() => setFeatCurIdx(featCurIdx + 1)}>
+                        <Button type="primary" onClick={onClickNext}>
                             Next
                         </Button>
                     ) : (

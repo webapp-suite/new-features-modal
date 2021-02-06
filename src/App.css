@@ -46,9 +46,10 @@ div[slot="main"] {
     line-height: 40px;
     margin-top: 40px;
     margin-bottom: 0;
-}
-
-.description {
+    cursor: default;
+  }
+  
+  .description {
     font-size: 16px;
     line-height: 20px;
     margin-top: 20px;
@@ -56,6 +57,7 @@ div[slot="main"] {
     padding: 0 20px;
     text-align: center;
     width: 100%;
+    cursor: default;
 }
 
 ts-root {
