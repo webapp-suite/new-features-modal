@@ -3,8 +3,7 @@ import { adapt } from "webcomponents-in-react";
 import "@tradeshift/elements.root";
 import "@tradeshift/elements.button";
 import "@tradeshift/elements.modal";
-
-const KEY_PREFIX = "new-features-modal";
+import { KEY_PREFIX } from "../constant";
 
 const Button = adapt("ts-button");
 const Modal = adapt("ts-modal", {
@@ -20,6 +19,8 @@ interface Feature {
     title: string;
     description: string;
     img: string;
+    deprecated: boolean;
+    releaseDate: string;
 }
 
 interface NewFeaturesModalProps {
@@ -35,15 +36,19 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
     features,
     onClose,
 }) => {
-    const [featCurIdx, setFeatCurIdx] = useState(0);
-    const featMaxIdx = (features?.length ?? 0) - 1;
+    const validFeatures = features?.filter(f => !f?.deprecated);
+    const [featCurIdx, setFeatCurIdx] = useState(
+        localStorage.getItem(`${KEY_PREFIX}/last-seen-step`)
+            ? Number(localStorage.getItem(`${KEY_PREFIX}/last-seen-step`))
+            : 0
+    );
+    const featMaxIdx = (validFeatures?.length ?? 0) - 1;
 
     const onOpen = () => {
         localStorage.setItem(`${KEY_PREFIX}/show`, "true");
         if (!localStorage.getItem(`${KEY_PREFIX}/last-seen-step`)) {
             localStorage.setItem(`${KEY_PREFIX}/last-seen-step`, "0");
         }
-        console.log("yes");
     };
 
     const onModalClose = () => {
@@ -52,7 +57,7 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
             localStorage.setItem(`${KEY_PREFIX}/show`, "false");
         }
         onClose?.();
-    }
+    };
 
     const onClickPrevious = () => {
         localStorage.setItem(`${KEY_PREFIX}/last-seen-step`, (featCurIdx - 1).toString());
@@ -65,13 +70,20 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
     };
 
     return (
-        <Modal size="small" visible={visible ? true : null} title={title} onOpen={onOpen} onClose={onModalClose} noPadding>
+        <Modal
+            size="small"
+            visible={visible ? true : null}
+            title={title}
+            onOpen={onOpen}
+            onClose={onModalClose}
+            noPadding
+        >
             <div slot="main">
                 <div className="img-container">
-                    <img src={features?.[featCurIdx]?.img} alt={features?.[featCurIdx]?.title} />
+                    <img src={validFeatures?.[featCurIdx]?.img} alt={validFeatures?.[featCurIdx]?.title} />
                 </div>
-                <h1 className="title">{features?.[featCurIdx]?.title}</h1>
-                <div className="description">{features?.[featCurIdx]?.description}</div>
+                <h1 className="title">{validFeatures?.[featCurIdx]?.title}</h1>
+                <div className="description">{validFeatures?.[featCurIdx]?.description}</div>
                 <div className="button-container">
                     {featCurIdx !== 0 && (
                         <Button type="secondary" onClick={onClickPrevious}>

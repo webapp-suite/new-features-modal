@@ -9,10 +9,9 @@ import "./App.css";
 import NewFeaturesModal from "./NewFeaturesModal";
 
 import data from "./data.json";
+import { KEY_PREFIX } from "./constant";
 
 const Button = adapt("ts-button");
-
-const KEY_PREFIX = "new-features-modal";
 
 declare global {
     namespace JSX {
@@ -26,24 +25,21 @@ declare global {
 }
 
 const App: React.FC = (props) => {
-    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+    const [isModalVisible, setIsModalVisible] = useState<boolean>(localStorage.getItem(`${KEY_PREFIX}/show`) !== "false");
     // @ts-ignore
     const { title, features } = data;
-    const shouldShowModal = localStorage.getItem(`${KEY_PREFIX}/show`) === 'true';
     return (
         <div className="App">
             <div className="leftNavMock"></div>
             <div className="rightContent">
                 <ts-root>
-                    <Button onClick={() => setIsModalVisible(true)}>open modal</Button>
-                    {shouldShowModal && (
-                        <NewFeaturesModal
-                            title={title}
-                            features={features}
-                            visible={isModalVisible}
-                            onClose={() => setIsModalVisible(false)}
-                        />
-                    )}
+                    <Button onClick={() => localStorage.clear()}>Clear localStorage</Button>
+                    <NewFeaturesModal
+                        title={title}
+                        features={features}
+                        visible={isModalVisible}
+                        onClose={() => setIsModalVisible(false)}
+                    />
                 </ts-root>
             </div>
         </div>
