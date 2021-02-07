@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { adapt } from 'webcomponents-in-react';
 
 import features from './data.json';
-import NewFeaturesModal from '@webapp-suite/new-feature-modal';
+import NewFeaturesModal from './NewFeatureModal';
 
 const KEY_PREFIX = "new-features-modal";
 const localStorageId = 'test'
