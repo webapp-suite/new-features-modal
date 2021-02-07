@@ -1,5 +1,6 @@
 {
     "name": "@webapp-suite/new-feature-modal",
+    "description": "Show a modal to communicate new added features. Built with react.js",
     "version": "0.1.0",
     "main": "src/index.tsx",
     "dependencies": {
