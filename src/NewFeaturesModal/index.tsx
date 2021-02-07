@@ -25,8 +25,8 @@ interface Feature {
 
 interface NewFeaturesModalProps {
     visible: boolean;
-    title: string;
     features: Feature[];
+    title?: string;
     onClose?: () => void;
 }
 

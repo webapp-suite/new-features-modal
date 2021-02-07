@@ -27,7 +27,7 @@ declare global {
 const App: React.FC = (props) => {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(localStorage.getItem(`${KEY_PREFIX}/show`) !== "false");
     // @ts-ignore
-    const { title, features } = data;
+    const { features } = data;
     return (
         <div className="App">
             <div className="leftNavMock"></div>
@@ -35,7 +35,6 @@ const App: React.FC = (props) => {
                 <ts-root>
                     <Button onClick={() => localStorage.clear()}>Clear localStorage</Button>
                     <NewFeaturesModal
-                        title={title}
                         features={features}
                         visible={isModalVisible}
                         onClose={() => setIsModalVisible(false)}
