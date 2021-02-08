@@ -13,26 +13,24 @@ const App: React.FC = (props) => {
         localStorage.getItem("new-features-modal/show") !== "false"
     );
     return (
-        <div>
-            <NewFeaturesModal
-                features={features}
-                visible={isModalVisible}
-                onClose={() => setIsModalVisible(false)}
-            />
-        </div>
+        <NewFeaturesModal
+            features={features}
+            visible={isModalVisible}
+            onClose={() => setIsModalVisible(false)}
+        />
     );
 };
 ```
 
 ## Props
 
-| Prop            | Type       | Default        | Usage                     |
-| :-------------- | :--------- | :------------- | :------------------------ |
-| visible         | boolean    | false          | Whether modal should show |
-| features        | Feature[]  | []             | -                         |
-| title?          | string     | "New Features" | -                         |
-| onClose?        | () => void | null           | -                         |
-| localStorageId? | string     | null           | -                         |
+| Prop            | Type       | Default        | Usage                                  |
+| :-------------- | :--------- | :------------- | :------------------------------------- |
+| visible         | boolean    | false          | Whether new features modal should show |
+| features        | Feature[]  | []             | -                                      |
+| title?          | string     | "New Features" | -                                      |
+| onClose?        | () => void | null           | -                                      |
+| localStorageId? | string     | null           | -                                      |
 
 ## Development
 
