@@ -7,6 +7,8 @@
         "@tradeshift/elements.button": "^0.19.1",
         "@tradeshift/elements.modal": "^0.19.1",
         "@tradeshift/elements.root": "^0.19.1",
+        "react-content-loader": "^6.0.1",
+        "react-image": "^4.0.3",
         "webcomponents-in-react": "^1.0.1"
     },
     "scripts": {
