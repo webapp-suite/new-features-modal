@@ -1,10 +1,11 @@
-import '@tradeshift/elements.root';
-import '@tradeshift/elements.button';
-import '@tradeshift/elements.modal';
-import './index.css';
+import "@tradeshift/elements.root";
+import "@tradeshift/elements.button";
+import "@tradeshift/elements.modal";
+import "./index.css";
 
-import React, { useState } from 'react';
-import { adapt } from 'webcomponents-in-react';
+import React, { useState } from "react";
+import { usePreloadImage } from "./utils";
+import { adapt } from "webcomponents-in-react";
 
 const KEY_PREFIX = "new-features-modal";
 
@@ -30,6 +31,7 @@ interface NewFeaturesModalProps {
     visible: boolean;
     features: Feature[];
     title?: string;
+    preloadImage?: boolean;
     localStorageId?: string;
     onClose?: () => void;
 }
@@ -40,15 +42,24 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
     features,
     localStorageId,
     onClose,
+    preloadImage = false
 }) => {
-    const LOCAL_STORAGE_PREFIX = localStorageId ? `${KEY_PREFIX}/${localStorageId}` : KEY_PREFIX;
-    const validFeatures = features?.filter(f => !f?.deprecated);
+    const LOCAL_STORAGE_PREFIX = localStorageId
+        ? `${KEY_PREFIX}/${localStorageId}`
+        : KEY_PREFIX;
+    const validFeatures = features?.filter((f) => !f?.deprecated);
     const [featCurIdx, setFeatCurIdx] = useState(
         localStorage.getItem(`${LOCAL_STORAGE_PREFIX}/last-seen-step`)
-            ? Number(localStorage.getItem(`${LOCAL_STORAGE_PREFIX}/last-seen-step`))
+            ? Number(
+                  localStorage.getItem(`${LOCAL_STORAGE_PREFIX}/last-seen-step`)
+              )
             : 0
     );
     const featMaxIdx = (validFeatures?.length ?? 0) - 1;
+
+    const { loaded } = usePreloadImage({
+        srcList: validFeatures?.map((v) => v?.img) ?? [],
+    });
 
     const onOpen = () => {
         localStorage.setItem(`${LOCAL_STORAGE_PREFIX}/show`, "true");
@@ -58,7 +69,10 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
     };
 
     const onModalClose = () => {
-        localStorage.setItem(`${LOCAL_STORAGE_PREFIX}/closed-date`, Date.now().toString());
+        localStorage.setItem(
+            `${LOCAL_STORAGE_PREFIX}/closed-date`,
+            Date.now().toString()
+        );
         if (featCurIdx === featMaxIdx) {
             localStorage.setItem(`${LOCAL_STORAGE_PREFIX}/show`, "false");
         }
@@ -66,49 +80,65 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
     };
 
     const onClickPrevious = () => {
-        localStorage.setItem(`${LOCAL_STORAGE_PREFIX}/last-seen-step`, (featCurIdx - 1).toString());
+        localStorage.setItem(
+            `${LOCAL_STORAGE_PREFIX}/last-seen-step`,
+            (featCurIdx - 1).toString()
+        );
         setFeatCurIdx(featCurIdx - 1);
     };
 
     const onClickNext = () => {
-        localStorage.setItem(`${LOCAL_STORAGE_PREFIX}/last-seen-step`, (featCurIdx + 1).toString());
+        localStorage.setItem(
+            `${LOCAL_STORAGE_PREFIX}/last-seen-step`,
+            (featCurIdx + 1).toString()
+        );
         setFeatCurIdx(featCurIdx + 1);
     };
 
-    return (
-        <Modal
-            size="small"
-            visible={visible ? true : null}
-            title={title}
-            onOpen={onOpen}
-            onClose={onModalClose}
-            noPadding
-        >
-            <div slot="main">
-                <div className="img-container">
-                    <img src={validFeatures?.[featCurIdx]?.img} alt={validFeatures?.[featCurIdx]?.title} />
+    if (!preloadImage || loaded) {
+        return (
+            <Modal
+                size="small"
+                visible={visible ? true : null}
+                title={title}
+                onOpen={onOpen}
+                onClose={onModalClose}
+                noPadding
+            >
+                <div slot="main">
+                    <div className="img-container">
+                        <img
+                            src={validFeatures?.[featCurIdx]?.img}
+                            alt={validFeatures?.[featCurIdx]?.title}
+                        />
+                    </div>
+                    <h1 className="title">
+                        {validFeatures?.[featCurIdx]?.title}
+                    </h1>
+                    <div className="description">
+                        {validFeatures?.[featCurIdx]?.description}
+                    </div>
+                    <div className="button-container">
+                        {featCurIdx !== 0 && (
+                            <Button type="secondary" onClick={onClickPrevious}>
+                                Previous
+                            </Button>
+                        )}
+                        {featCurIdx < featMaxIdx ? (
+                            <Button type="primary" onClick={onClickNext}>
+                                Next
+                            </Button>
+                        ) : (
+                            <Button type="primary" onClick={onClose}>
+                                Close
+                            </Button>
+                        )}
+                    </div>
                 </div>
-                <h1 className="title">{validFeatures?.[featCurIdx]?.title}</h1>
-                <div className="description">{validFeatures?.[featCurIdx]?.description}</div>
-                <div className="button-container">
-                    {featCurIdx !== 0 && (
-                        <Button type="secondary" onClick={onClickPrevious}>
-                            Previous
-                        </Button>
-                    )}
-                    {featCurIdx < featMaxIdx ? (
-                        <Button type="primary" onClick={onClickNext}>
-                            Next
-                        </Button>
-                    ) : (
-                        <Button type="primary" onClick={onClose}>
-                            Close
-                        </Button>
-                    )}
-                </div>
-            </div>
-        </Modal>
-    );
+            </Modal>
+        );
+    }
+    return null;
 };
 
 export default NewFeaturesModal;

@@ -39,6 +39,7 @@ const App: React.FC = (props) => {
                         features={features}
                         visible={isModalVisible}
                         onClose={() => setIsModalVisible(false)}
+                        preloadImage
                     />
                 </ts-root>
             </div>
