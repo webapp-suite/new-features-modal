@@ -4,7 +4,6 @@ import "@tradeshift/elements.modal";
 import "./index.css";
 
 import React, { useState } from "react";
-import { usePreloadImage } from "./utils";
 import { adapt } from "webcomponents-in-react";
 
 const KEY_PREFIX = "new-features-modal";
@@ -31,7 +30,6 @@ interface NewFeaturesModalProps {
     visible: boolean;
     features: Feature[];
     title?: string;
-    preloadImage?: boolean;
     localStorageId?: string;
     onClose?: () => void;
 }
@@ -42,7 +40,6 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
     features,
     localStorageId,
     onClose,
-    preloadImage = false
 }) => {
     const LOCAL_STORAGE_PREFIX = localStorageId
         ? `${KEY_PREFIX}/${localStorageId}`
@@ -56,10 +53,6 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
             : 0
     );
     const featMaxIdx = (validFeatures?.length ?? 0) - 1;
-
-    const { loaded } = usePreloadImage({
-        srcList: validFeatures?.map((v) => v?.img) ?? [],
-    });
 
     const onOpen = () => {
         localStorage.setItem(`${LOCAL_STORAGE_PREFIX}/show`, "true");
@@ -95,50 +88,45 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
         setFeatCurIdx(featCurIdx + 1);
     };
 
-    if (!preloadImage || loaded) {
-        return (
-            <Modal
-                size="small"
-                visible={visible ? true : null}
-                title={title}
-                onOpen={onOpen}
-                onClose={onModalClose}
-                noPadding
-            >
-                <div slot="main">
-                    <div className="img-container">
-                        <img
-                            src={validFeatures?.[featCurIdx]?.img}
-                            alt={validFeatures?.[featCurIdx]?.title}
-                        />
-                    </div>
-                    <h1 className="title">
-                        {validFeatures?.[featCurIdx]?.title}
-                    </h1>
-                    <div className="description">
-                        {validFeatures?.[featCurIdx]?.description}
-                    </div>
-                    <div className="button-container">
-                        {featCurIdx !== 0 && (
-                            <Button type="secondary" onClick={onClickPrevious}>
-                                Previous
-                            </Button>
-                        )}
-                        {featCurIdx < featMaxIdx ? (
-                            <Button type="primary" onClick={onClickNext}>
-                                Next
-                            </Button>
-                        ) : (
-                            <Button type="primary" onClick={onClose}>
-                                Close
-                            </Button>
-                        )}
-                    </div>
+    return (
+        <Modal
+            size="small"
+            visible={visible ? true : null}
+            title={title}
+            onOpen={onOpen}
+            onClose={onModalClose}
+            noPadding
+        >
+            <div slot="main">
+                <div className="img-container">
+                    <img
+                        src={validFeatures?.[featCurIdx]?.img}
+                        alt={validFeatures?.[featCurIdx]?.title}
+                    />
                 </div>
-            </Modal>
-        );
-    }
-    return null;
+                <h1 className="title">{validFeatures?.[featCurIdx]?.title}</h1>
+                <div className="description">
+                    {validFeatures?.[featCurIdx]?.description}
+                </div>
+                <div className="button-container">
+                    {featCurIdx !== 0 && (
+                        <Button type="secondary" onClick={onClickPrevious}>
+                            Previous
+                        </Button>
+                    )}
+                    {featCurIdx < featMaxIdx ? (
+                        <Button type="primary" onClick={onClickNext}>
+                            Next
+                        </Button>
+                    ) : (
+                        <Button type="primary" onClick={onClose}>
+                            Close
+                        </Button>
+                    )}
+                </div>
+            </div>
+        </Modal>
+    );
 };
 
 export default NewFeaturesModal;
