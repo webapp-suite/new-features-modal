@@ -1,24 +1,11 @@
-import '@tradeshift/elements.root';
-import '@tradeshift/elements.button';
-import '@tradeshift/elements.modal';
 import './index.css';
 
 import React, { Suspense, useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { useImage } from 'react-image';
-import { adapt } from 'webcomponents-in-react';
+import { Button, Modal } from '../elements-react';
 
 const KEY_PREFIX = "new-features-modal";
-
-const Button = adapt("ts-button");
-const Modal = adapt("ts-modal", {
-    visible: "data-visible",
-    title: "data-title",
-    size: "data-size",
-    onClose: "close",
-    onOpen: "open",
-    noPadding: "no-padding",
-});
 
 interface ImageProps {
     src: string;

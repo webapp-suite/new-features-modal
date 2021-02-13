@@ -1,19 +1,16 @@
-import "@tradeshift/elements.root";
-import "@tradeshift/elements.button";
 import "@tradeshift/elements/src/fonts.css";
 import "@tradeshift/elements/src/vars.css";
 import "./App.css";
 
 import React, { useState } from "react";
-import { adapt } from "webcomponents-in-react";
 
 import features from "./data.json";
 import NewFeaturesModal from "./NewFeatureModal";
+import AppDock from "./AppDock";
+import { Button, Header, Root } from "./elements-react";
 
 const KEY_PREFIX = "new-features-modal";
 const localStorageId = "test";
-
-const Button = adapt("ts-button");
 
 declare global {
     namespace JSX {
@@ -44,19 +41,24 @@ const App: React.FC = (props) => {
     );
     return (
         <div className="App">
-            <div className="leftNavMock"></div>
+            <AppDock logo="" />
             <div className="rightContent">
-                <ts-root>
-                    <Button onClick={() => localStorage.clear()}>
-                        Clear localStorage
-                    </Button>
+                <Root>
+                    <Header
+                        icon="https://cosmos-x.oss-cn-hangzhou.aliyuncs.com/blue-bg-webapps-ui-icon.png"
+                        title="WebApp Suite"
+                    >
+                        <Button onClick={() => localStorage.clear()}>
+                            Clear localStorage
+                        </Button>
+                    </Header>
                     <NewFeaturesModal
                         localStorageId={localStorageId}
                         features={features}
                         visible={isModalVisible}
                         onClose={() => setIsModalVisible(false)}
                     />
-                </ts-root>
+                </Root>
             </div>
         </div>
     );

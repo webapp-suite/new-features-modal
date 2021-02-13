@@ -1,0 +1,13 @@
+{
+    "apps": [
+        {
+            "name": "webapp",
+            "img": "https://cosmos-x.oss-cn-hangzhou.aliyuncs.com/blue-bg-webapps-ui-icon.png"
+        },
+        {
+            "name": "message",
+            "img": "/message.svg"
+        }
+    ],
+    "showAllAppsIcon": true
+}
