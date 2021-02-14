@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import cx from "classnames";
 import data from "./data.json";
-import styles from "./index.module.css";
 import { Button } from "../elements-react";
+import Avatar from "./Avatar";
+import styles from "./index.less";
 
 export interface AppDockProps {
     logo: any;
 }
 
 const AppDock: React.FC<AppDockProps> = () => {
-    const { apps, showAllAppsIcon = true } = data;
+    const { apps, showAllAppsIcon = true, user } = data;
     const [activeAppName, setActiveAppName] = useState(apps[0].name);
     const [showAppBar, setShowAppBar] = useState(false);
     return (
@@ -44,24 +45,31 @@ const AppDock: React.FC<AppDockProps> = () => {
                         </div>
                     )}
                 </div>
-                <div className={styles.user}></div>
+                <div className={styles.user}>
+                    <Avatar
+                        busy={false}
+                        userName={user.userName}
+                        companyName={user.companyName}
+                        avatarURL={user.avatarURL}
+                    />
+                </div>
             </div>
-            {showAppBar && (
-                <div className={styles.appBar}>
+            <div className={cx(styles.appBar, {
+                    [styles.appBarOpen]: showAppBar
+                })}>
                     <div className={styles.appBarTop}>
                         {/* <img src="/icon-all-apps.svg" alt="" className={styles.appBarTopLogoImg} /> */}
                         <div className={styles.appBarTopTitle}>
-                            APPLICATIONS
+                            MY APPLICATIONS
                         </div>
                         <Button
                             icon="close-clear"
                             size="large"
                             className={cx("no-border", styles.appBarTopClose)}
                             onClick={() => setShowAppBar(false)}
-                        ></Button>
+                        />
                     </div>
                 </div>
-            )}
         </div>
     );
 };

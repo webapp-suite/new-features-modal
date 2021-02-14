@@ -37,6 +37,7 @@
 .user {
     height: var(--app-dock-height);
     border-top: 1px solid var(--app-dock-divider-color);
+    cursor: pointer;
 }
 .apps {
     /* background-color: blue; */
@@ -52,6 +53,16 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    &Img {
+        width: 40px;
+        height: 40px;
+    }
+    &Active {
+        background-color: var(--app-dock-app-active-bg-color);
+    }
+    &:not(&Active):hover {
+        background-color: #131826;
+    }
 }
 
 .iconAllApps {
@@ -59,45 +70,32 @@
     background-color: transparent;
 }
 
-.appIcon:not(.appIconActive):hover {
-    background-color: #131826;
-}
-
-.appIconImg {
-    width: 40px;
-    height: 40px;
-}
-
-.appIconActive {
-    background-color: var(--app-dock-app-active-bg-color);
-}
-
 .appBar {
-    width: 300px;
+    width: 0;
+    transition: width 0.2s ease-in-out;
     /* background-color: #f4f5f7; */
     background-color: #131826;
     color: #fff;
-}
-
-.appBarTop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--app-dock-divider-color);
-    height: var(--app-dock-height);
-}
-
-.appBarTopClose {
-    margin-right: 10px;
-}
-
-.appBarTopLogoImg {
-    transform: scale(0.8);
-    /* zoom: .8; */
-}
-.appBarTopTitle {
-    /* border: 1px solid red; */
-    padding-left: 10px;
-    font-size: 15px;
-    width: 100%;
+    &Open {
+        width: 300px;
+    }
+    &Top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--app-dock-divider-color);
+        height: var(--app-dock-height);
+        &Title {
+            padding-left: 15px;
+            font-size: 15px;
+            width: 100%;
+            white-space: nowrap;
+        }
+        &Close {
+            margin-right: 10px;
+        }
+        &LogoImg {
+            transform: scale(0.8);
+        }
+    }
 }

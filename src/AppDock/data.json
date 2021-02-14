@@ -1,4 +1,5 @@
 {
+    "showAllAppsIcon": true,
     "apps": [
         {
             "name": "webapp",
@@ -9,5 +10,9 @@
             "img": "/message.svg"
         }
     ],
-    "showAllAppsIcon": true
+    "user": {
+        "userName": "Kimi Gao",
+        "companyName": "xxx",
+        "avatarURL": ""
+    }
 }
