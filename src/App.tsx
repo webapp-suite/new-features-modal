@@ -45,8 +45,8 @@ const App: React.FC = (props) => {
             <div className="rightContent">
                 <Root>
                     <Header
-                        icon="https://cosmos-x.oss-cn-hangzhou.aliyuncs.com/blue-bg-webapps-ui-icon.png"
-                        title="WebApp Suite"
+                        icon="/dashboard.svg"
+                        title="Dashboard"
                     >
                         <Button onClick={() => localStorage.clear()}>
                             Clear localStorage

@@ -1,9 +1,10 @@
 {
+    "logo": "/logo.svg",
     "showAllAppsIcon": true,
     "apps": [
         {
-            "name": "webapp",
-            "img": "https://cosmos-x.oss-cn-hangzhou.aliyuncs.com/blue-bg-webapps-ui-icon.png"
+            "name": "dashboard",
+            "img": "/dashboard.svg"
         },
         {
             "name": "message",

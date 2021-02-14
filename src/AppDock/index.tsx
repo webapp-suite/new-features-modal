@@ -10,13 +10,15 @@ export interface AppDockProps {
 }
 
 const AppDock: React.FC<AppDockProps> = () => {
-    const { apps, showAllAppsIcon = true, user } = data;
+    const { apps, showAllAppsIcon = true, user, logo } = data;
     const [activeAppName, setActiveAppName] = useState(apps[0].name);
     const [showAppBar, setShowAppBar] = useState(false);
     return (
         <div className={styles.appDock}>
             <div className={styles.appIcons}>
-                <div className={styles.logo}></div>
+                <div className={styles.logo}>
+                    {logo && <img src={logo} alt=""/>}
+                </div>
                 <div className={styles.apps}>
                     {apps.map((app: any) => (
                         <div

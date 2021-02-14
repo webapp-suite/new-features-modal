@@ -30,8 +30,14 @@
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: var(--app-dock-height);
     border-bottom: 1px solid var(--app-dock-divider-color);
+    img {
+        width: 40px;
+    }
 }
 
 .user {
@@ -40,7 +46,7 @@
     cursor: pointer;
 }
 .apps {
-    /* background-color: blue; */
+    position: relative;
     height: calc(100vh - 120px);
 }
 
@@ -68,12 +74,13 @@
 .iconAllApps {
     /* composes: appIcon; */
     background-color: transparent;
+    position: absolute;
+    bottom: 0;
 }
 
 .appBar {
     width: 0;
     transition: width 0.2s ease-in-out;
-    /* background-color: #f4f5f7; */
     background-color: #131826;
     color: #fff;
     &Open {
