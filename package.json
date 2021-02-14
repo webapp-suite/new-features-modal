@@ -9,6 +9,7 @@
         "@tradeshift/elements.icon": "^0.19.1",
         "@tradeshift/elements.modal": "^0.19.1",
         "@tradeshift/elements.root": "^0.19.1",
+        "@tradeshift/elements.tooltip": "^0.19.1",
         "classnames": "^2.2.6",
         "react-content-loader": "^6.0.1",
         "react-image": "^4.0.3",

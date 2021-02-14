@@ -1,8 +1,9 @@
-import React, { useState } from "react";
 import cx from "classnames";
-import data from "./data.json";
-import { Button } from "../elements-react";
+import React, { useState } from "react";
+
+import { Button, Tooltip } from "../elements-react";
 import Avatar from "./Avatar";
+import data from "./data.json";
 import styles from "./index.less";
 
 export interface AppDockProps {
@@ -17,11 +18,12 @@ const AppDock: React.FC<AppDockProps> = () => {
         <div className={styles.appDock}>
             <div className={styles.appIcons}>
                 <div className={styles.logo}>
-                    {logo && <img src={logo} alt=""/>}
+                    {logo && <img src={logo} alt="" />}
                 </div>
                 <div className={styles.apps}>
                     {apps.map((app: any) => (
                         <div
+                            key={app.name}
                             className={cx(styles.appIcon, {
                                 [styles.appIconActive]:
                                     app.name === activeAppName,
@@ -31,11 +33,13 @@ const AppDock: React.FC<AppDockProps> = () => {
                                 setShowAppBar(false);
                             }}
                         >
-                            <img
-                                src={app.img}
-                                alt=""
-                                className={styles.appIconImg}
-                            />
+                            <Tooltip tooltip={app.name} className={styles.iconTooltip}>
+                                <img
+                                    src={app.img}
+                                    alt=""
+                                    className={styles.appIconImg}
+                                />
+                            </Tooltip>
                         </div>
                     ))}
                     {showAllAppsIcon && (
@@ -56,22 +60,22 @@ const AppDock: React.FC<AppDockProps> = () => {
                     />
                 </div>
             </div>
-            <div className={cx(styles.appBar, {
-                    [styles.appBarOpen]: showAppBar
-                })}>
-                    <div className={styles.appBarTop}>
-                        {/* <img src="/icon-all-apps.svg" alt="" className={styles.appBarTopLogoImg} /> */}
-                        <div className={styles.appBarTopTitle}>
-                            MY APPLICATIONS
-                        </div>
-                        <Button
-                            icon="close-clear"
-                            size="large"
-                            className={cx("no-border", styles.appBarTopClose)}
-                            onClick={() => setShowAppBar(false)}
-                        />
-                    </div>
+            <div
+                className={cx(styles.appBar, {
+                    [styles.appBarOpen]: showAppBar,
+                })}
+            >
+                <div className={styles.appBarTop}>
+                    {/* <img src="/icon-all-apps.svg" alt="" className={styles.appBarTopLogoImg} /> */}
+                    <div className={styles.appBarTopTitle}>MY APPLICATIONS</div>
+                    <Button
+                        icon="close-clear"
+                        size="large"
+                        className={cx("no-border", styles.appBarTopClose)}
+                        onClick={() => setShowAppBar(false)}
+                    />
                 </div>
+            </div>
         </div>
     );
 };

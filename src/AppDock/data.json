@@ -3,11 +3,11 @@
     "showAllAppsIcon": true,
     "apps": [
         {
-            "name": "dashboard",
+            "name": "Dashboard",
             "img": "/dashboard.svg"
         },
         {
-            "name": "message",
+            "name": "Message",
             "img": "/message.svg"
         }
     ],
