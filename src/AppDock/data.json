@@ -4,11 +4,13 @@
     "apps": [
         {
             "name": "Dashboard",
-            "img": "/dashboard.svg"
+            "img": "/dashboard.svg",
+            "vendor": "Webapp"
         },
         {
             "name": "Message",
-            "img": "/message.svg"
+            "img": "/message.svg",
+            "vendor": "Webapp"
         }
     ],
     "user": {

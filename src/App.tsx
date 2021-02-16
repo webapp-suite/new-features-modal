@@ -2,7 +2,7 @@ import "@tradeshift/elements/src/fonts.css";
 import "@tradeshift/elements/src/vars.css";
 import "./App.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import features from "./data.json";
 import NewFeaturesModal from "./NewFeatureModal";
@@ -39,14 +39,27 @@ const App: React.FC = (props) => {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(
         localStorage.getItem(`${KEY_PREFIX}/${localStorageId}/show`) !== "false"
     );
+    const [curAppName, setCurAppName] = useState("Dashboard");
+
+    const onHashChange = () => {
+        setCurAppName(window.location.hash?.split(".")?.[1]);
+    };
+
+    useEffect(() => {
+        window.addEventListener("hashchange", onHashChange);
+        return () => {
+            window.removeEventListener("hashchange", onHashChange);
+        };
+    }, []);
+
     return (
         <div className="App">
             <AppDock logo="" />
             <div className="rightContent">
                 <Root>
                     <Header
-                        icon="/dashboard.svg"
-                        title="Dashboard"
+                        icon={`/${curAppName.toLowerCase()}.svg`}
+                        title={curAppName}
                     >
                         <Button onClick={() => localStorage.clear()}>
                             Clear localStorage

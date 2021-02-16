@@ -33,12 +33,17 @@ const AppDock: React.FC<AppDockProps> = () => {
                                 setShowAppBar(false);
                             }}
                         >
-                            <Tooltip tooltip={app.name} className={styles.iconTooltip}>
-                                <img
-                                    src={app.img}
-                                    alt=""
-                                    className={styles.appIconImg}
-                                />
+                            <Tooltip
+                                tooltip={app.name}
+                                className={styles.iconTooltip}
+                            >
+                                <a href={`#/${app.vendor}.${app.name}`}>
+                                    <img
+                                        src={app.img}
+                                        alt=""
+                                        className={styles.appIconImg}
+                                    />
+                                </a>
                             </Tooltip>
                         </div>
                     ))}
