@@ -5,7 +5,7 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 
 import features from "./data.json";
-import NewFeaturesModal from "./NewFeatureModal";
+import NewFeaturesModal from "./NewFeaturesModal";
 import AppDock from "./AppDock";
 import { Button, Header, Root } from "@webapp-suite/elements-react";
 
