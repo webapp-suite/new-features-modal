@@ -3,12 +3,12 @@
     "showAllAppsIcon": true,
     "apps": [
         {
-            "name": "Dashboard",
+            "name": "react16",
             "img": "/dashboard.svg",
             "vendor": "Webapp"
         },
         {
-            "name": "Message",
+            "name": "vue3",
             "img": "/message.svg",
             "vendor": "Webapp"
         }

@@ -87,11 +87,20 @@
 
 .appBar {
     width: 0;
+    // FIXME
+    ts-button {
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+    }
     transition: width 0.2s ease-in-out;
     background-color: #131826;
     color: #fff;
     &Open {
         width: 300px;
+        // FIXME
+        ts-button {
+            opacity: 1;
+        }
     }
     &Top {
         display: flex;
