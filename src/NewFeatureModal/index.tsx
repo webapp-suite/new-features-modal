@@ -3,7 +3,7 @@ import './index.css';
 import React, { Suspense, useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { useImage } from 'react-image';
-import { Button, Modal } from '../elements-react';
+import { Button, Modal } from '@webapp-suite/elements-react';
 
 const KEY_PREFIX = "new-features-modal";
 

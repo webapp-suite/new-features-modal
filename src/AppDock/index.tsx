@@ -1,7 +1,7 @@
 import cx from "classnames";
 import React, { useState } from "react";
 
-import { Button, Tooltip } from "../elements-react";
+import { Button, Tooltip } from "@webapp-suite/elements-react";
 import Avatar from "./Avatar";
 import data from "./data.json";
 import styles from "./index.less";
