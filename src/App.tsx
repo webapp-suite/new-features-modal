@@ -2,53 +2,50 @@ import "@webapp-suite/elements-react/src/fonts.css";
 import "@webapp-suite/elements-react/src/vars.css";
 import "./App.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import features from "./data.json";
 import NewFeaturesModal from "./NewFeaturesModal";
 import AppDock from "./AppDock";
-import { Root } from "@webapp-suite/elements-react";
-import ReactDOM from "react-dom";
+import { Button, Header, Root } from "@webapp-suite/elements-react";
 
 const KEY_PREFIX = "new-features-modal";
 const localStorageId = "test";
 
-interface RenderProps {
-    loading: boolean;
+interface AppProps {
+    // loading: boolean;
 }
 
-const App: React.FC<RenderProps> = ({ loading }) => {
+const App: React.FC<AppProps> = () => {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(
         localStorage.getItem(`${KEY_PREFIX}/${localStorageId}/show`) !== "false"
     );
-    // const [curAppName, setCurAppName] = useState("Dashboard");
+    const [curAppName, setCurAppName] = useState("Dashboard");
 
-    // const onHashChange = () => {
-    //     setCurAppName(window.location.hash?.split(".")?.[1]);
-    // };
+    const onHashChange = () => {
+        setCurAppName(window.location.hash?.split(".")?.[1]);
+    };
 
-    // useEffect(() => {
-    //     window.addEventListener("hashchange", onHashChange);
-    //     return () => {
-    //         window.removeEventListener("hashchange", onHashChange);
-    //     };
-    // }, []);
+    useEffect(() => {
+        window.addEventListener("hashchange", onHashChange);
+        return () => {
+            window.removeEventListener("hashchange", onHashChange);
+        };
+    }, []);
 
     return (
         <div className="App">
             <AppDock logo="" />
             <div className="rightContent">
                 <Root>
-                    {/* <Header
+                    <Header
                         icon={`/${curAppName.toLowerCase()}.svg`}
                         title={curAppName}
                     >
                         <Button onClick={() => localStorage.clear()}>
                             Clear localStorage
                         </Button>
-                    </Header> */}
-                    {loading && <h4 className="subapp-loading">Loading...</h4>}
-                    <div id="subapp-viewport" />
+                    </Header>
                     <NewFeaturesModal
                         localStorageId={localStorageId}
                         features={features}
@@ -61,7 +58,4 @@ const App: React.FC<RenderProps> = ({ loading }) => {
     );
 };
 
-export default function render({ loading }: {loading: boolean}) {
-    const container = document.getElementById("root");
-    ReactDOM.render(<App loading={loading} />, container);
-}
+export default App;

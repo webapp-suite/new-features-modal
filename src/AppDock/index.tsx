@@ -37,21 +37,13 @@ const AppDock: React.FC<AppDockProps> = () => {
                                 tooltip={app.name}
                                 className={styles.iconTooltip}
                             >
-                                <div
-                                    onClick={() =>
-                                        window.history.pushState(
-                                            null,
-                                            `/${app.name}`,
-                                            `/${app.name}`
-                                        )
-                                    }
-                                >
+                                <a href={`#/${app.vendor}.${app.name}`}>
                                     <img
                                         src={app.img}
                                         alt=""
                                         className={styles.appIconImg}
                                     />
-                                </div>
+                                </a>
                             </Tooltip>
                         </div>
                     ))}
