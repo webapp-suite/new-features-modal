@@ -5,12 +5,16 @@ import { Button, Tooltip } from "@webapp-suite/elements-react";
 import Avatar from "./Avatar";
 import data from "./data.json";
 import styles from "./index.less";
+import { useDispatch } from "react-redux";
 
 export interface AppDockProps {
     logo: any;
 }
 
 const AppDock: React.FC<AppDockProps> = () => {
+    const {
+        frame: { incrementAsync },
+    } = useDispatch();
     const { apps, showAllAppsIcon = true, user, logo } = data;
     const [activeAppName, setActiveAppName] = useState(apps[0].name);
     const [showAppBar, setShowAppBar] = useState(false);
@@ -37,7 +41,10 @@ const AppDock: React.FC<AppDockProps> = () => {
                                 tooltip={app.name}
                                 className={styles.iconTooltip}
                             >
-                                <a href={`#/${app.vendor}.${app.name}`}>
+                                <a
+                                    href={`#/${app.vendor}.${app.name}`}
+                                    onClick={() => incrementAsync(1)}
+                                >
                                     <img
                                         src={app.img}
                                         alt=""

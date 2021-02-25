@@ -5,8 +5,8 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 
 import features from "./data.json";
-import NewFeaturesModal from "./NewFeaturesModal";
-import AppDock from "./AppDock";
+import NewFeaturesModal from "./components/NewFeaturesModal";
+import AppDock from "./components/AppDock";
 import { Button, Header, Root } from "@webapp-suite/elements-react";
 
 const KEY_PREFIX = "new-features-modal";
