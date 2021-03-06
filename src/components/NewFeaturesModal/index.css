@@ -1,3 +1,7 @@
+.modal {
+    --ts-modal-width-small: 690px;
+}
+
 div[slot="main"] {
     align-items: center;
     display: block;

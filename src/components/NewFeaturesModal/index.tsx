@@ -98,6 +98,7 @@ const NewFeaturesModal: React.FC<NewFeaturesModalProps> = ({
             onOpen={onOpen}
             onClose={onModalClose}
             noPadding
+            className="modal"
         >
             <div slot="main">
                 <div className="img-container">
