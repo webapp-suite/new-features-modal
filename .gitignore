@@ -108,3 +108,5 @@ build/
 dist/
 .npmrc
 package-lock.json
+.vscode
+.idea
